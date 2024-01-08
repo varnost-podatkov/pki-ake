@@ -1,0 +1,6 @@
+* Digitalni podpis in asimetrična šifra El Gamal
+Vsa navodila so nahajajo v [[./Signatures.ipynb][IPython Notebook zvezku Signatures.ipynb.]]
+** Cilji laboratorijske vaje
+- Spoznati uporabo podpisne sheme RSA-PSS v Javi in Pythonu;
+- Spoznati uporabo podpisne sheme Ed25519 v Javi in Pythonu;
+- Samostojno implementirati hibridno šifro ECIES v Javi in Pythonu.
