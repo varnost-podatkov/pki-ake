@@ -49,7 +49,7 @@ public class A1OneSidedSimpleAKE {
             @Override
             public void task() throws Exception {
                 final Certificate certBor = certFromFile("../cert_bor.pem");
-                final RSAPrivateKey skBor = loadPrivateKey("../sk_bor.pem");
+                final RSAPrivateKey skBor = privateKeyFromFile("../sk_bor.pem");
 
                 final byte[] r = new byte[32];
                 SecureRandom.getInstanceStrong().nextBytes(r);

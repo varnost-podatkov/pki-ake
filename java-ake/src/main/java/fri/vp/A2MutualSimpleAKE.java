@@ -11,7 +11,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.security.Signature;
-import java.security.SignedObject;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPrivateKey;
@@ -33,7 +32,7 @@ public class A2MutualSimpleAKE {
             @Override
             public void task() throws Exception {
                 final X509Certificate cert = certFromFile("../cert_ana.pem");
-                final RSAPrivateKey sk = loadPrivateKey("../sk_ana.pem");
+                final RSAPrivateKey sk = privateKeyFromFile("../sk_ana.pem");
 
                 final byte[] r = receive("bor");
                 final X509Certificate bor = certFromBytes(receive("bor"));
@@ -66,7 +65,7 @@ public class A2MutualSimpleAKE {
             @Override
             public void task() throws Exception {
                 final X509Certificate cert = certFromFile("../cert_bor.pem");
-                final RSAPrivateKey sk = loadPrivateKey("../sk_bor.pem");
+                final RSAPrivateKey sk = privateKeyFromFile("../sk_bor.pem");
 
                 final byte[] r = new byte[32];
                 SecureRandom.getInstanceStrong().nextBytes(r);

@@ -13,7 +13,7 @@ public class RSASignatureExample {
 
     public static void main(String[] args) throws Exception {
         final Certificate cert = certFromFile("../cert_ana.pem");
-        final RSAPrivateKey skAna = loadPrivateKey("../sk_ana.pem");
+        final RSAPrivateKey skAna = privateKeyFromFile("../sk_ana.pem");
 
         final String algorithm = "SHA256WithRSA";
         final String message = "A test message.";

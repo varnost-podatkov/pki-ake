@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.KeyFactory;
 import java.security.Security;
-import java.security.cert.Certificate;
+import java.security.SignatureException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPrivateKey;
@@ -19,7 +19,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 public class CertUtils {
 
     static {
-        // Knjižnico BoucyCAstle moramo "ročno" vklopiti kot ponudnika varnostnih storitev
+        // Knjižnico BoucyCastle moramo "ročno" vklopiti kot ponudnika varnostnih storitev
         Security.addProvider(new BouncyCastleProvider());
     }
 
@@ -32,7 +32,7 @@ public class CertUtils {
         return (X509Certificate) certFactory.generateCertificate(new ByteArrayInputStream(bytes));
     }
 
-    public static RSAPrivateKey loadPrivateKey(String file) throws Exception {
+    public static RSAPrivateKey privateKeyFromFile(String file) throws Exception {
         KeyFactory factory = KeyFactory.getInstance("RSA");
 
         try (FileReader keyReader = new FileReader(file);
@@ -44,18 +44,35 @@ public class CertUtils {
     }
 
     public static void main(String[] args) throws Exception {
-        final Certificate certCA = certFromFile("../cert_ca.pem");
-        final Certificate certAna = certFromFile("../cert_ana.pem");
-        final Certificate certBor = certFromFile("../cert_bor.pem");
-        final Certificate certCene = certFromFile("../cert_cene.pem");
-//        final RSAPrivateKey skAna = loadPrivateKey("../sk_ana.pem");
+        // Preberemo certifikat CA in ga izpišemo
+        final X509Certificate certCA = certFromFile("../cert_ca.pem");
+        System.out.println(certCA);
 
-        // hhttps://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/security/cert/X509Certificate.html
+        // Preberemo še Anin certifikat
+        final X509Certificate certAna = certFromFile("../cert_ana.pem");
+        // In še njen zasebni ključ zasebni ključ
+        final RSAPrivateKey skAna = privateKeyFromFile("../sk_ana.pem");
+        System.out.println(certAna);
+        System.out.println(skAna);
+
+
+        // Dokumentacija vmesnika API za delo s certifikati X509 v Javi
+        // https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/security/cert/X509Certificate.html
+
+        // Preverimo, ali je Anin certifikat res izdala certifikatna agencija
         certAna.verify(certCA.getPublicKey());
-        System.out.println("Valid!");
-        certBor.verify(certCA.getPublicKey());
-        System.out.println("Valid!");
+
+        // Če ni, bi se sprožila izjema: npr. Cenetov certifikat je podpisala Ana (in ne CA),
+        // zato se pri preverjanju sproži izjema
+        final X509Certificate certCene = certFromFile("../cert_cene.pem");
+        try {
+            certCene.verify(certCA.getPublicKey());
+        } catch (SignatureException e) {
+            System.out.println("Napaka pri preverjanju Cenetovega certifikata: " + e.getMessage());
+        }
+
+        // Če pa preverimo z Aninim certifikatom, pa preverjanje uspe
         certCene.verify(certAna.getPublicKey());
-        System.out.println("Valid!");
+        System.out.println("Res je Ana podpisala Cenetov certifikat.");
     }
 }
