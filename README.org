@@ -41,8 +41,8 @@ V datoteki =A1OneSidedSimpleAKE.java= implementirajte enostranski dogovor o klju
 Poleg vseh preverjanj, ki so navedene na prosojnicah mora Ana tudi preveriti, ali je Borov certifikat veljaven (tj. ali je pravilno podpisan s strani prave CA) ter ali mu časovna veljava še ni potekla. Za preverjanje časovne veljave uporabite ustrezno funkcijo. [[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/security/cert/X509Certificate.html][Za pomoč poglejte v dokumentacijo.]]
 
 ** Naloga 2: Vzajemno overjen dogovor o ključu -- Protokol 1B
-Sedaj pa implementirajte še Protokol 1B: zanj veljajo enake zahteve glede preverjanja certifikatov kot pri prejšnji nalogi.
+Sedaj pa v datoteki =A2MutalSimpleAKE.java= implementirajte še Protokol 1B: zanj veljajo enake zahteve glede preverjanja certifikatov kot pri prejšnji nalogi.
 ** Naloga 3: Implementacija napada s posrednikom
-Nazadnje implementirajte še napad s posrednikom na neoverjen (anonimni) dogovor o ključu s pomočjo asimetrične šifre.
+Nazadnje v datoteko =A3MITMSimpleKE.java= implementirajte še napad s posrednikom na neoverjen (anonimni) dogovor o ključu s pomočjo asimetrične šifre.
 
 Koda v agentih =Ana= in =Bor= je že pripravljena in je ne smete spreminjati. Vaš napad implementirajte v metodi =task()= agenta =Nandi=. Za podrobnosti napada poglejte prosojnice s predavanj.
