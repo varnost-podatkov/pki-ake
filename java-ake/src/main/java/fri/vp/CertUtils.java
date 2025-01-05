@@ -35,8 +35,7 @@ public class CertUtils {
     public static RSAPrivateKey privateKeyFromFile(String file) throws Exception {
         KeyFactory factory = KeyFactory.getInstance("RSA");
 
-        try (FileReader keyReader = new FileReader(file);
-             final PemReader pemReader = new PemReader(keyReader)) {
+        try (final PemReader pemReader = new PemReader(new FileReader(file))) {
             final PemObject pemObject = pemReader.readPemObject();
             final PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(pemObject.getContent());
             return (RSAPrivateKey) factory.generatePrivate(keySpec);

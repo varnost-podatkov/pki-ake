@@ -38,7 +38,7 @@ Ko bo delovanje omenjenih programov jasno, nadaljujte z nalogo 1.
 ** Naloga 1: Enostransko overjen dogovor o ključu -- Protokol 1A
 V datoteki =A1OneSidedSimpleAKE.java= implementirajte enostranski dogovor o ključu, ki smo ga obravnavali tekom predavanj; tam smo ga poimenovali =Protokol 1A=.
 
-Poleg vseh preverjanj, ki so navedene na prosojnicah mora Ana tudi preveriti, ali je Borov certifikat veljaven (tj. ali je pravilno podpisan s strani prave CA) ter ali mu časovna veljava še ni potekla. Za preverjanje časovne veljave uporabite ustrezno funkcijo. [[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/security/cert/X509Certificate.html][Za pomoč poglejte v dokumentacijo.]]
+Poleg vseh preverjanj, ki so navedene na prosojnicah, mora Ana tudi preveriti prejet certifikat. Pri tem se omejite na identiteto nosilca, časovno veljavnost ter veljavnost podpisa; preklica in ostalih atributov na certifikatu ni potrebno preverjati. Za preverjanje časovne veljave uporabite ustrezno funkcijo. [[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/security/cert/X509Certificate.html][Za pomoč poglejte v dokumentacijo.]]
 
 ** Naloga 2: Vzajemno overjen dogovor o ključu -- Protokol 1B
 Sedaj pa v datoteki =A2MutalSimpleAKE.java= implementirajte še Protokol 1B: zanj veljajo enake zahteve glede preverjanja certifikatov kot pri prejšnji nalogi.
